@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic sorry card</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            background-color: #f9f2f4;
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow-x:hidden ;
+            position: relative;
+        }
+
+        .bg-hearts{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .card{
+            background-color: white;
+            width: 100%;
+            max-width: 550px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(199, 21, 133, 0.2);
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+            margin: 20px auto;
+        }
+
+        .card-header{
+            background: linear-gradient(135deg, #ff6b6b, #c71585 100%);
+            color: white;
+            padding: clamp(20px, 5vw, 30px);
+            text-align: center;
+            font-size: clamp(20px, 6vw, 32px);
+            font-family: 'Brush Script MT', cursive, sans-serif;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            position: relative;
+
+        }
+
+        .card-header::after{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 20px;
+            width: 100%;
+            background-size: 20px 20px;
+            background-position: 0 -10px;
+
+        }
+
+        .card-body{
+            padding: clamp(20px, 5vw , 40px);
+            color: #333;
+            position: relative;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50C55 45 65 45 70 50C75 55 75 65 70 70C65 75 55 75 50 70C45 65 45 55 50 50Z' fill='%23f9eaf1' fill-opacity='0.3'/%3E%3C/svg%3E");
+
+        }
+
+        .message{
+            font-size: clamp(16px, 3vw, 18px);
+            line-height: 1.7;
+            margin-bottom: 25px;
+            text-align: justify;
+            color: #555;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        .message p{ 
+            margin-bottom: 15px;
+
+        }
+
+        .signature{
+            text-align: right;
+            font-style: italic;
+            font-size: clamp(18px, 4vw, 22px);
+            margin-top: clamp(20px, 5vw, 20px);
+            color: #c71585;
+            font-family: 'Brush Script MT', cursive, sans-serif;
+        }
+
+        .heart{
+            position: absolute;
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #ff6b6b;
+            transform: rotate(45deg);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: #ff6b6b;
+            border-radius: 50%;
+            position: absolute;
+
+        }
+
+        .heart::before {
+            top: -5px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: -5px;
+        }
+
+        .floating {
+            animation: floatUp 10s linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: rotate(45deg) translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: rotate(45deg)  translateY(-100vh) translateX(var(--tx));
+                opacity: 0;
+            }
+        }
+
+        .rose-border{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+
+        }
+
+    .rose {
+        position: absolute;
+        height: clamp(20px ,4vw, 30px);
+        width: clamp(20px ,4vw, 30px);
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.7;
+
+    }
+
+
+    .rose1 {
+        top: 10px;
+        left: 10px;
+        transform: rotate(-25deg);
+    }
+
+    .rose {
+        top: 10px;
+        left: 10px;
+        transform: rotate(15deg);
+    }
+    
+    .rose {
+        top: 10px;
+        left: 10px;
+        transform: rotate(-15deg);
+    }
+  
+    .rose {
+        top: 10px;
+        left: 10px;
+        transform: rotate(25deg);
+    }
+
+    @media (max-width: 767px) {
+        body {
+            padding: 10px;
+        }
+    
+
+    .card {
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 480px) {
+        body {
+            padding: 5px;
+            align-items: flex-start;
+            padding-top: 20px;
+        }
+        .card {
+            margin: 5px auto;
+            border-radius: 10px;
+        }
+        .message {
+            text-align: left;
+        }
+        .heart-counter-adjuster {
+            display: none;
+        }
+}
+
+ @media (max-width: 320px) {
+    .card-header {
+        padding: 15px;
+    }
+ 
+
+ .card-body {
+    padding: 15px;
+ }
+ }
+
+ @media (max-height: 500px) and (orientation: landscape) {
+    body {
+        align-items: flex-start;
+        padding-top: 10px;
+    }
+    .card {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    .card-header{
+        padding: 15px;
+    }
+    .message {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+ }
+
+ @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 129dpi) {
+    .card {
+        box-shadow: 0 10px 25px rgba(199, 21, 133, 0.15);
+    }
+ }
+
+ @media print {
+    body {
+        background-color: white;
+        padding: 0;
+    }
+    .card {
+        box-shadow: none;
+        max-width: 100%;
+    }
+    .big-hearts {
+        display: none;
+    }
+ }
+ 
+ </style>
+
+</head>
+<body>
+
+<div class="bg-hearts" id="bg-hearts"></div>
+
+<div class="card">
+    <div class="card-header">
+        From me to you
+    </div>
+    <div class="card-body">
+        <div class="message">
+            <p>My Sunshine,</p>
+
+            <p>As I sit here writing this, sorrow wraps itself around me, knowing I have been the cause of your pain. The pain I have caused, is a reflection of my mistake, and I'm truly sorry for causing you any sadness. You deserve nothing but happiness, and I regret that my actions have dimmed the light in your beautiful smile.</p>
+
+            <p>Since you walked into my life, everything has changed in ways I could have never imagined. You've shown me a kindness so rare and a trust so sacred that it humbles me every time I think about it. Like the seasons that quietly shape the earth, your presence has reshaped my world, making it richer, softer, and more alive. I know that I have hurt you, and it tears me apart knowing that I let my actions cast even the smallest shadow over your light. You deserve someone who sees the incredible person you are. I promise to be more aware, more patient, and more deserving of the gift that is you. No matter how many words I write, none could ever fully express the depth of my gratitude for you and the fierce desire I have to make things right.</p>
+
+            <p>Please forgive me. I promise to learn from this, to grow, and to be the partner you deserve.</p>
+        </div>
+        <div class="signature">
+            Forever yours, <br>
+            {yourname}
+        </div>
+    </div>
+
+    <div class="rose-border">
+        <div class="rose rose1"></div>
+        <div class="rose rose2"></div>
+        <div class="rose rose3"></div>
+        <div class="rose rose4"></div>
+    </div>
+</div>
+
+<script>
+ const isMobile = /Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const heartInterval = isMobile ? 500 : 300;
+const initialHearts = isMobile ? 8 : 15;
+
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.classList.add('floating');
+    
+    if (isMobile && Math.random() > 0.6) {
+        heart.classList.add('heart-count-adjuster');
+    }
+
+    const startX = Math.random() * window.innerWidth;
+    heart.style.left = startX + 'px';
+    heart.style.bottom = '-10px';
+
+    const size = isMobile ?
+        Math.random() * 10 + 5 : 
+        Math.random() * 15 + 10;
+    heart.style.width = size + 'px';
+    heart.style.height = size + 'px';
+    
+    const tx = isMobile ?
+        Math.random() * 100 - 50 : 
+        Math.random() * 200 - 100;
+    heart.style.setProperty('--tx', tx + 'px');
+
+    const duration = isMobile ?
+        Math.random() * 4 + 5 :
+        Math.random() * 6 + 6;
+    
+    const colors = ['#ff6b6b', '#c71585', '#ff85a2', '#ff4081'];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    heart.style.backgroundColor = color;
+
+    const style = document.createElement('style');
+    const heartId = 'heart-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+    heart.id = heartId;
+
+    style.innerHTML = `
+        #${heartId}::before, #${heartId}::after {
+            background-color: ${color};
+        }
+    `;
+    document.head.appendChild(style);
+
+    document.getElementById('bg-hearts').appendChild(heart);
+
+    setTimeout(() => {
+        if (heart && heart.parentNode) {
+            heart.parentNode.removeChild(heart);
+        }
+        if (style && style.parentNode) {
+            style.parentNode.removeChild(style);
+        }
+    }, duration * 1000);
+}
+
+let heartCreator = setInterval(createHeart, heartInterval);
+
+for (let i = 0; i < initialHearts; i++) {
+    setTimeout(createHeart, i * 200);
+}
+
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        clearInterval(heartCreator);
+    } else {
+        heartCreator = setInterval(createHeart, heartInterval);
+    }
+});
+
+window.addEventListener('resize', function() {
+    clearInterval(heartCreator);
+    setTimeout(() => {
+        const smallScreen = window.innerWidth < 768;
+        heartCreator = setInterval(createHeart, smallScreen ? 500 : 300);
+    }, 200);
+});
+
+window.addEventListener('beforeunload', function() {
+    clearInterval(heartCreator);
+    const hearts = document.querySelectorAll('.heart');
+    hearts.forEach(heart => heart.remove());
+});
+
+</script> 
+
+</body>
+</html>
